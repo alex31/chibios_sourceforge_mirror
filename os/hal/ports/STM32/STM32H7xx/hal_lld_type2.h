@@ -1239,6 +1239,7 @@
  * @{
  */
 #if STM32_VOS == STM32_VOS_SCALE0
+#define STM32_SDMMC_MAXCLK          250000000U
 #define STM32_0WS_THRESHOLD         70000000U
 #define STM32_1WS_THRESHOLD         140000000U
 #define STM32_2WS_THRESHOLD         210000000U
@@ -1248,6 +1249,7 @@
 #define STM32_PLLOUT_MIN            1500000U
 
 #elif STM32_VOS == STM32_VOS_SCALE1
+#define STM32_SDMMC_MAXCLK          200000000U
 #define STM32_0WS_THRESHOLD         67000000U
 #define STM32_1WS_THRESHOLD         133000000U
 #define STM32_2WS_THRESHOLD         200000000U
@@ -1257,6 +1259,7 @@
 #define STM32_PLLOUT_MIN            1500000U
 
 #elif STM32_VOS == STM32_VOS_SCALE2
+#define STM32_SDMMC_MAXCLK          150000000U
 #define STM32_0WS_THRESHOLD         50000000U
 #define STM32_1WS_THRESHOLD         100000000U
 #define STM32_2WS_THRESHOLD         150000000U
@@ -1266,6 +1269,7 @@
 #define STM32_PLLOUT_MIN            1500000U
 
 #elif STM32_VOS == STM32_VOS_SCALE3
+#define STM32_SDMMC_MAXCLK          100000000U
 #define STM32_0WS_THRESHOLD         35000000U
 #define STM32_1WS_THRESHOLD         70000000U
 #define STM32_2WS_THRESHOLD         85000000U
@@ -1660,11 +1664,9 @@
 /**
  * @brief   PLL1 DIVP field.
  */
-#if (STM32_PLL1_DIVP_VALUE == 1) ||                                         \
-    ((STM32_PLL1_DIVP_VALUE >= 2) && (STM32_PLL1_DIVP_VALUE <= 128) &&      \
-     ((STM32_PLL1_DIVP_VALUE & 1) == 0)) ||                                 \
-    defined(__DOXYGEN__)
-#define STM32_PLL1_DIVP             ((STM32_PLL1_DIVP_VALUE - 1U) << RCC_PLL1DIVR_P1_Pos)
+#if ((STM32_PLL1_DIVP_VALUE >= 1) && (STM32_PLL1_DIVP_VALUE <= 128)) &&     \
+    ((STM32_PLL1_DIVP_VALUE == 1) || ((STM32_PLL1_DIVP_VALUE & 1) == 0))
+#define STM32_PLL1_DIVP             ((STM32_PLL1_DIVP_VALUE - 1U) << 9U)
 #else
 #error "invalid STM32_PLL1_DIVP_VALUE value specified"
 #endif
@@ -1672,8 +1674,8 @@
 /**
  * @brief   PLL2 DIVP field.
  */
-#if ((STM32_PLL2_DIVP_VALUE >= 1) && (STM32_PLL2_DIVP_VALUE <= 128) &&      \
-     (STM32_PLL2_DIVP_VALUE != 3U)) || defined(__DOXYGEN__)
+#if ((STM32_PLL2_DIVP_VALUE >= 1) && (STM32_PLL2_DIVP_VALUE <= 128)) ||     \
+    defined(__DOXYGEN__)
 #define STM32_PLL2_DIVP             ((STM32_PLL2_DIVP_VALUE - 1U) << 9U)
 #else
 #error "invalid STM32_PLL2_DIVP_VALUE value specified"
@@ -1682,8 +1684,8 @@
 /**
  * @brief   PLL3 DIVP field.
  */
-#if ((STM32_PLL3_DIVP_VALUE >= 1) && (STM32_PLL3_DIVP_VALUE <= 128) &&      \
-     (STM32_PLL3_DIVP_VALUE != 3U)) || defined(__DOXYGEN__)
+#if ((STM32_PLL3_DIVP_VALUE >= 1) && (STM32_PLL3_DIVP_VALUE <= 128)) ||     \
+    defined(__DOXYGEN__)
 #define STM32_PLL3_DIVP             ((STM32_PLL3_DIVP_VALUE - 1U) << 9U)
 #else
 #error "invalid STM32_PLL3_DIVP_VALUE value specified"
