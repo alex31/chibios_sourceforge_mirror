@@ -74,11 +74,13 @@
 *****************************************************************************
 
 *** 21.11.4 ***
+- NEW: Enhanced STM32F7xx MPU configuration in mcuconf.h.
 - NEW: I2C slave support in HAL high level driver.
 - NEW: Added settings for STM32 OCTOSPIv1 and OCTOSPIv2 TCR bits SSHIFT and
        DHQC.
 - NEW: Reworked STM32 SDMMCv1 and SDMMCv2 drivers, better timeout and clock
        handling, improved speed for aligned buffers.
+- FIX: Fixed RTC & TAMP interrupts not functional (bug #1260).
 - FIX: Fixed syntax errors in STM32H7xx/hal_lld_type2.h (bug #1259).
 - FIX: Fixed unwanted reset of cache on STM32H7xx (bug #1258).
 - FIX: Fixed invalid HSIDIV in STM32Ggxx clocks initialization (bug #1257).
