@@ -137,6 +137,19 @@
 #define MPU_REGION_5                        5U
 #define MPU_REGION_6                        6U
 #define MPU_REGION_7                        7U
+#ifdef STM32H7XX
+/*===========================================================================*/
+/* STM32H7 MPU has 16 regions.						     */
+/*===========================================================================*/
+#define MPU_REGION_8                        8U
+#define MPU_REGION_9                        9U
+#define MPU_REGION_10                       10U
+#define MPU_REGION_11                       11U
+#define MPU_REGION_12                       12U
+#define MPU_REGION_13                       13U
+#define MPU_REGION_14                       14U
+#define MPU_REGION_15                       15U
+#endif
 /** @} */
 
 /*===========================================================================*/
