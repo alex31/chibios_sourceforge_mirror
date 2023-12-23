@@ -272,18 +272,33 @@ static inline cnt_t chGuardedPoolGetCounterI(guarded_memory_pool_t *gmp) {
  *
  * @iclass
  */
+/* static inline void *chGuardedPoolAllocI(guarded_memory_pool_t *gmp) { */
+/*   void *p; */
+  
+/*   if (chSemGetCounterI(&gmp->sem) == 0) */
+/*     return NULL; */
+  
+/*   p = chPoolAllocI(&gmp->pool); */
+/*   if (p != NULL) { */
+/*     chSemFastWaitI(&gmp->sem); */
+/*     chDbgAssert(chSemGetCounterI(&gmp->sem) >= (cnt_t)0, */
+/*                 "semaphore out of sync"); */
+/*   } */
+/*   return p; */
+/* } */
 static inline void *chGuardedPoolAllocI(guarded_memory_pool_t *gmp) {
   void *p;
 
-  p = chPoolAllocI(&gmp->pool);
-  if (p != NULL) {
+  if (chSemGetCounterI(&gmp->sem) > (cnt_t)0) {
     chSemFastWaitI(&gmp->sem);
-    chDbgAssert(chSemGetCounterI(&gmp->sem) >= (cnt_t)0,
-                "semaphore out of sync");
+    p = chPoolAllocI(&gmp->pool);
   }
+  else {
+    p = NULL;
+  }
+
   return p;
 }
-
 /**
  * @brief   Releases an object into a guarded memory pool.
  * @pre     The guarded memory pool must already be initialized.
